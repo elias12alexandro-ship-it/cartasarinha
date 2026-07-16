@@ -89,7 +89,8 @@ const obterImagensGaleria = () => {
         }
 
         imagens.push({
-            src: `assets/fotos/foto${numFormatado}.png`,
+            // Alterado de .png para .jpg (JPEG) conforme solicitado
+            src: `assets/fotos/foto${numFormatado}.jpg`,
             legenda: legenda
         });
     }
@@ -153,7 +154,7 @@ const mudarFotoLightbox = (direcao) => {
 };
 
 /* ==========================================================================
-   3. EFEITO MÁQUINA DE ESCREVER (TYPEWRITER)
+   3. EXIBIÇÃO DA CARTA (CARREGAMENTO INSTANTÂNEO)
    ========================================================================== */
 
 const iniciarTypewriter = () => {
@@ -165,58 +166,40 @@ const iniciarTypewriter = () => {
     
     if (!container || !textoCompleto) return;
     
-    container.innerHTML = "";
-    container.classList.remove('typing-finished');
-    if (assinatura) assinatura.classList.remove('show');
+    // Injeta todo o texto instantaneamente
+    container.innerHTML = textoCompleto;
+    container.classList.add('typing-finished');
+    
+    // Exibe a assinatura imediatamente
+    if (assinatura) assinatura.classList.add('show');
+    
+    // Revela o mural de fotos e o encerramento suavemente após um pequeno delay
+    setTimeout(() => {
+        const gallerySec = document.getElementById("gallery-section");
+        const finalSec = document.getElementById("final-section");
+        const finalText = document.getElementById("final-text-p");
+        const finalSigs = document.getElementById("final-sigs");
 
-    let i = 0;
-    const speed = (typeof CONFIG !== 'undefined') ? CONFIG.TYPEWRITER_SPEED : 50;
-
-    function digitar() {
-        if (i < textoCompleto.length) {
-            container.innerHTML += textoCompleto.charAt(i);
-            i++;
-            // Rolagem suave para manter o foco na leitura se o texto passar do limite da tela
-            window.scrollTo({
-                top: container.offsetTop + container.offsetHeight - 200,
-                behavior: 'smooth'
-            });
-            setTimeout(digitar, speed);
-        } else {
-            container.classList.add('typing-finished');
-            if (assinatura) assinatura.classList.add('show');
-            
-            // Ativa suavemente as seções finais após concluir a leitura
-            setTimeout(() => {
-                const gallerySec = document.getElementById("gallery-section");
-                const finalSec = document.getElementById("final-section");
-                const finalText = document.getElementById("final-text-p");
-                const finalSigs = document.getElementById("final-sigs");
-
-                if (gallerySec) {
-                    gallerySec.classList.remove("hidden");
-                    setTimeout(() => gallerySec.classList.add("show"), 50);
-                }
-
-                if (finalSec) {
-                    finalSec.classList.remove("hidden");
-                    setTimeout(() => {
-                        finalSec.classList.add("show");
-                        if (finalText) {
-                            finalText.textContent = (typeof MENSAGEM_FINAL_TEXTO !== 'undefined') 
-                                ? MENSAGEM_FINAL_TEXTO 
-                                : "Que possamos criar ainda mais memórias lindas juntos. Obrigado por tudo!";
-                        }
-                        setTimeout(() => {
-                            if (finalSigs) finalSigs.classList.add("show");
-                        }, 1000);
-                    }, 500);
-                }
-            }, (typeof CONFIG !== 'undefined') ? CONFIG.MURAL_DELAY_TEXT : 3000);
+        if (gallerySec) {
+            gallerySec.classList.remove("hidden");
+            setTimeout(() => gallerySec.classList.add("show"), 50);
         }
-    }
 
-    digitar();
+        if (finalSec) {
+            finalSec.classList.remove("hidden");
+            setTimeout(() => {
+                finalSec.classList.add("show");
+                if (finalText) {
+                    finalText.textContent = (typeof MENSAGEM_FINAL_TEXTO !== 'undefined') 
+                        ? MENSAGEM_FINAL_TEXTO 
+                        : "Que possamos criar ainda mais memórias lindas juntos. Obrigado por tudo!";
+                }
+                setTimeout(() => {
+                    if (finalSigs) finalSigs.classList.add("show");
+                }, 1000);
+            }, 500);
+        }
+    }, 1500); // 1.5 segundos de delay para que ela veja o papel da carta antes das fotos subirem
 };
 
 /* ==========================================================================
@@ -251,7 +234,7 @@ const initParticles = () => {
 
     function animate() {
         ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = '#aa8410'; // Cor dourada sutil combinando com o tema
+        ctx.fillStyle = '#aa8410'; // Cor dourada sutil
 
         stars.forEach(star => {
             star.opacity += star.speed;
@@ -313,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         mainContent.classList.remove("hidden");
                         mainContent.classList.add("show");
                         
-                        // Inicia o efeito typewriter assim que a tela principal carrega
+                        // Executa o carregamento da carta
                         iniciarTypewriter();
                     }
                 }, 1000);

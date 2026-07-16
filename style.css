@@ -268,12 +268,7 @@ body {
     white-space: pre-wrap;
 }
 
-/* Cursor piscante do efeito máquina de escrever */
-.letter-text::after {
-    content: ' |';
-    color: var(--gold-primary);
-    animation: blink 0.8s infinite;
-}
+
 
 .letter-text.typing-finished::after {
     display: none;
