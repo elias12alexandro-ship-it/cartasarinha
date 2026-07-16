@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Sara, com amor</title>
+    <!-- Fontes do Google: Poppins para leitura e Caveat para a escrita cursiva manual -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Canvas para Partículas de Brilho -->
+    <canvas id="particles"></canvas>
+
+    <!-- Áudio de Fundo -->
+    <audio id="background-music" src="assets/audio/musica1.mp3" loop preload="auto"></audio>
+
+    <!-- Controle Flutuante de Música (Inicia oculto e aparece após abrir a carta) -->
+    <button id="music-control" class="music-btn hidden" aria-label="Controlar música">
+        <svg class="music-icon" viewBox="0 0 24 24">
+            <path id="music-icon-path" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+
+    <!-- TELA 1: Envelope 3D de Abertura -->
+    <div id="envelope-screen" class="screen-center">
+        <div class="envelope-wrapper">
+            <div class="envelope" id="main-envelope">
+                <div class="flap"></div>
+                <div class="pocket"></div>
+                <div class="letter-preview">
+                    <div class="letter-preview-content">
+                        <p class="preview-title">Para Sara Ferraz 🤍</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="click-instruction">Toque no envelope para abrir</p>
+    </div>
+
+    <!-- TELA 2: Conteúdo Principal (Carta e Galeria) -->
+    <main id="main-content" class="main-container hidden">
+        
+        <!-- Seção da Carta Física -->
+        <section class="letter-section">
+            <div class="paper-letter" id="paper-letter">
+                <!-- Limpo para o efeito typewriter funcionar sem sobreposição -->
+                <div class="letter-text" id="typewriter-container"></div>
+                <div class="letter-signature" id="letter-sig">Beijo, Eu Te amo Sara Lucia Ferraz 🤍<br>De: Elias | Para: Sara Ferraz</div>
+            </div>
+        </section>
+
+        <!-- Seção da Galeria de Fotos Polaroid -->
+        <section class="gallery-section hidden" id="gallery-section">
+            <h2 class="section-title">Nossas Memórias</h2>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Injetado dinamicamente via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Seção Final de Encerramento -->
+        <section class="final-section hidden" id="final-section">
+            <div class="final-message-box">
+                <p class="final-text" id="final-text-p"></p>
+                <div class="final-signatures" id="final-sigs">
+                    <p class="sig-from">De: Elias</p>
+                    <p class="sig-to">Para: Sara Ferraz 🤍</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- LIGHTBOX: Visualizador de Imagens em Tela Cheia -->
+    <div id="lightbox" class="lightbox hidden" aria-modal="true" role="dialog">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Fechar visualizador">&times;</button>
+        <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Foto anterior">&#10094;</button>
+        
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Foto expandida">
+            <p id="lightbox-caption" class="lightbox-caption"></p>
+        </div>
+        
+        <button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Próxima foto">&#10095;</button>
+    </div>
+
+    <!-- Importação de Dados e Scripts -->
+    <script src="config.js"></script>
+    <script src="legendas.js"></script>
+    <script src="carta.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
