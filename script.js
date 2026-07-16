@@ -8,8 +8,9 @@ const AudioController = {
     isPlaying: false,
     currentTrackIndex: 0,
     playlist: [
-        'assets/audio/musica1.mp3'
-      
+       'assets/audio/musica1.mp3',
+        'assets/audio/musica2.mp3',
+        'assets/audio/musica3.mp3'
     ],
 
     init() {
